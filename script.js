@@ -1,3 +1,17 @@
+function saveTasks() {
+    let tasks = [];
+    document.querySelectorAll("#taskList li").forEach(li => {
+        tasks.push({
+            text: li.firstChild.textContent.trim(), // task text
+            done: li.style.textDecoration === "line-through"
+        });
+    });
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+
+
+
 document.getElementById("addBtn").addEventListener("click", function() {
     let taskText = document.getElementById("taskInput").value;
     if (taskText === "") return;
@@ -10,6 +24,7 @@ deleteBtn.textContent = "❌";
 deleteBtn.style.float = "right";
 deleteBtn.addEventListener("click", function() {
     li.remove();
+    saveTasks();
 });
 li.appendChild(deleteBtn);
 
@@ -24,10 +39,12 @@ li.addEventListener("click", function(e) {
     } else {
         li.style.textDecoration = "line-through";
     }
+     saveTasks(); 
 });
 
 
     document.getElementById("taskList").appendChild(li);
+    saveTasks();
 
     document.getElementById("taskInput").value = "";
 });
