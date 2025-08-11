@@ -8,3 +8,10 @@ document.getElementById("addBtn").addEventListener("click", function() {
 
     document.getElementById("taskInput").value = "";
 });
+
+document.getElementById("taskInput").addEventListener("keypress", function(e) {
+    if (e.key === "Enter") {
+        document.getElementById("addBtn").click();
+    }
+});
+
