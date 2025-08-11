@@ -4,6 +4,16 @@ document.getElementById("addBtn").addEventListener("click", function() {
 
     let li = document.createElement("li");
     li.textContent = taskText;
+
+    let deleteBtn = document.createElement("button");
+deleteBtn.textContent = "❌";
+deleteBtn.style.float = "right";
+deleteBtn.addEventListener("click", function() {
+    li.remove();
+});
+li.appendChild(deleteBtn);
+
+
     document.getElementById("taskList").appendChild(li);
 
     document.getElementById("taskInput").value = "";
