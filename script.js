@@ -55,3 +55,37 @@ document.getElementById("taskInput").addEventListener("keypress", function(e) {
     }
 });
 
+window.onload = function() {
+    let savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    savedTasks.forEach(t => {
+        let li = document.createElement("li");
+        li.textContent = t.text;
+
+        // Mark completed if saved as done
+        if (t.done) {
+            li.style.textDecoration = "line-through";
+        }
+
+        // Create delete button
+        let deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "❌";
+        deleteBtn.style.float = "right";
+        deleteBtn.addEventListener("click", function() {
+            li.remove();
+            saveTasks();
+        });
+
+        // Mark as completed toggle
+        li.addEventListener("click", function(e) {
+            if (e.target.tagName === "BUTTON") return;
+            li.style.textDecoration = li.style.textDecoration === "line-through" ? "none" : "line-through";
+            saveTasks();
+        });
+
+        li.appendChild(deleteBtn);
+        document.getElementById("taskList").appendChild(li);
+    });
+};
+
+
